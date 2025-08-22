@@ -11,15 +11,15 @@ def zajemi_osnovne_podatke():
     skladbe = []
     for page in range(1, 21):  # 20 strani x 50 skladb = 1000 skladb
         print(f"Zbiram podatke strani {page}...")
-        url = f"{stran_url}?page={page}" # naredi URL za ta page
-        res = requests.get(url)
+        url = f"{stran_url}?page={page}" # naredi URL za to stran
+        res = requests.get(url) # naloži HTML vsebino strani
         soup = BeautifulSoup(res.text, 'html.parser')
         
         vrstice = soup.select('tr.chartlist-row')
         
         for vrstica in vrstice:
-            title_tag = vrstica.select_one('.chartlist-name a')
-            artist_tag = vrstica.select_one('.chartlist-artist a')
+            title_tag = vrstica.select_one('.chartlist-name a') # naslov
+            artist_tag = vrstica.select_one('.chartlist-artist a') # izvajalec
             
             if title_tag and artist_tag:
                 naslov = title_tag.text.strip()
